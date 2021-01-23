@@ -5,7 +5,7 @@ import './styles.scss';
 const Navbar = () => (
     <nav className="row bg-primary main-nav">
         <div className="col-2">
-            <Link to="link" className="nav-logo-text">
+            <Link to="/" className="nav-logo-text">
                 <h4>Ds Catalog</h4>
             </Link>
         </div>
