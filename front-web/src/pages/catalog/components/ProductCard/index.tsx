@@ -1,16 +1,20 @@
 import React from 'react';
 import './styles.scss'
-import {ReactComponent as Computer} from '../../../../core/assets/images/image.svg'
 import ProductPrice from '../../../../core/components/ProductPrice';
+import { Product } from '../../../../core/types/Product';
 
-const ProductCard = () => (
+type Props = {
+    product: Product;
+}
+
+const ProductCard = ({product}: Props) => (
     <div className="card-base border-radius-10 product-card">
-        <Computer/>
+        <img src={product.imgUrl} alt={product.name} className="product-card-image"/>
         <div className="product-info">
             <h6 className="product-name">
-                Computador Desktop - Intel Core i7
+                {product.name}
             </h6>
-            <ProductPrice price="2.799,00"/>
+            <ProductPrice price={product.price}/>
         </div>
     </div>
 );
