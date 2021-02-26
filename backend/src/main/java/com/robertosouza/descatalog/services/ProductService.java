@@ -24,6 +24,7 @@ import com.robertosouza.descatalog.entities.Category;
 import com.robertosouza.descatalog.entities.Product;
 import com.robertosouza.descatalog.repositories.CategoryRepository;
 import com.robertosouza.descatalog.repositories.ProductRepository;
+import com.robertosouza.descatalog.services.exceptions.DatabaseException;
 import com.robertosouza.descatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -92,7 +93,7 @@ public class ProductService {
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Id não encontrado " + id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Violação de integridade");
+			throw new DatabaseException("Violação de integridade");
 		}
 	}
 	
