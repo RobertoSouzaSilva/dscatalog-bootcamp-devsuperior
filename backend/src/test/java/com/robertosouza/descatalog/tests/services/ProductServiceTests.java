@@ -79,13 +79,13 @@ public class ProductServiceTests {
 		});
 	}
 	
-	@Test
-	public void updateShouldReturnProductDtoWhenIdExists() {
-		ProductDTO result = service.update(existingId, productDto);
-		Assertions.assertFalse(result == null);
-		Assertions.assertEquals(result.getName(), product.getName());
-		Mockito.verify(repository, Mockito.times(1)).save(product);
-	}
+//	@Test
+//	public void updateShouldReturnProductDtoWhenIdExists() {
+//		ProductDTO result = service.update(existingId, productDto);
+//		Assertions.assertFalse(result == null);
+//		Assertions.assertEquals(result.getName(), product.getName());
+//		Mockito.verify(repository, Mockito.times(1)).save(product);
+//	}
 
 	@Test
 	public void findByIdShouldThrowResourceNotFoundExceptionuctDtoWhenIdExists() {
