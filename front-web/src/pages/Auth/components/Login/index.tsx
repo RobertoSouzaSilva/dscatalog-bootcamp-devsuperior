@@ -36,8 +36,18 @@ const Login = () => {
                 </div>
             )}
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <input name="username" type="email" ref={register({required:true})} className="form-control input-base margin-bottom-30" placeholder="Email"/>
-                <input name="password" type="password" ref={register({required:true})} className="form-control input-base" placeholder="Senha"/>
+                <div className="margin-bottom-30">
+                    <input name="username" type="email" ref={register({required: "Campo obrigatório", pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Email inválido"}})} className={`form-control input-base margin-bottom-30 ${errors.username ? 'is-invalid' : ''}`} placeholder="Email"/>
+                    {errors.username && (
+                        <div className="invalid-feedback">{errors.username.message}</div>
+                    )}
+                </div>
+                <div className="margin-bottom-30">
+                    <input name="password" type="password" ref={register({required: "Campo obrigatório"})} className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`} placeholder="Senha"/>
+                    {errors.password && (
+                        <div className="invalid-feedback">{errors.password.message}</div>
+                    )}
+                </div>
                 <Link to="/admin/auth/recover" className="login-link-recover">Esqueci a senha?</Link>
                 <div className="login-submit">
                     <ButtonIcon text="Logar"/>

@@ -1,4 +1,4 @@
-import { makeRequest } from 'core/utils/request';
+import { makePrivateRequest } from 'core/utils/request';
 import { stringify } from 'querystring';
 import React, { useState } from 'react';
 import BaseForm from '../../BaseForm';
@@ -35,7 +35,7 @@ const Form = () => {
                 id: formData.category
             }],
         }
-        makeRequest({url: '/products', method: 'POST', data:payload}).then(() => setFormData({name:'', price: '', category: '1', description: ''}));
+        makePrivateRequest({url: '/products', method: 'POST', data:payload}).then(() => setFormData({name:'', price: '', category: '1', description: ''}));
 
     }
 
