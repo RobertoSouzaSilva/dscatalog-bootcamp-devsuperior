@@ -7,7 +7,7 @@ import ButtonIcon from 'core/components/ButtonIcon';
 import { makeLogin } from 'core/utils/request';
 import { saveSessionData } from 'core/utils/auth';
 
-type FormData = {
+type FormState = {
     username: string;
     password: string;
 }
@@ -18,14 +18,14 @@ type LocationState = {
 
 const Login = () => {
 
-    const { register, handleSubmit, errors } = useForm<FormData>(); 
+    const { register, handleSubmit, errors } = useForm<FormState>(); 
     const [hasError, setHasError] = useState(false);
     const history = useHistory();
     const location = useLocation<LocationState>();
 
     const {from} = location.state || {from:{pathname:"/admin"}};
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: FormState) => {
         makeLogin(data)
             .then(response => {
                 setHasError(false); 
