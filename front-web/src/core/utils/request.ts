@@ -1,7 +1,6 @@
 import axios,{Method} from 'axios';
 import qs from 'qs';
 import { CLIENT_ID, CLIENT_SECRET, getSessionData, logout } from './auth';
-import history from './history';
 
 type RequestParams = {
     method?: Method;
@@ -32,25 +31,26 @@ axios.interceptors.response.use(function (response) {
 });
 
 
-export const makeRequest = ({method = 'GET', url, data, params, headers}: RequestParams) => {
+export const makeRequest = ({ method = 'GET', url, data, params, headers }: RequestParams) => {
     return axios({
-        method,
-        url: `${BASE_URL}${url}`,
-        data,
-        params,
-        headers
+      method,
+      url: `${BASE_URL}${url}`,
+      data,
+      params,
+      headers
     });
-}
+  }
+  
 
-export const makePrivateRequest = ({method = 'GET', url, data, params}:RequestParams) => {
+export const makePrivateRequest = ({ method = 'GET', url, data, params }: RequestParams ) => {
     const sessionData = getSessionData();
-
+  
     const headers = {
-        'Authorization': `Bearer ${sessionData.access_token}`
+      'Authorization': `Bearer ${sessionData.access_token}`
     }
-
-    return makeRequest({method, url, data, params, headers});
-}
+  
+    return makeRequest({ method, url, data, params, headers });
+  }
 
 //yarn add qs
 //yarn add @types/qs
