@@ -61,7 +61,7 @@ const Form = () => {
 
         const payload = {
             ...data,
-            imgUrl: uploadedImgUrl
+            imgUrl: uploadedImgUrl || productImgUrl
         }
 
         makePrivateRequest({ 
@@ -125,6 +125,7 @@ const Form = () => {
                         <div className="margin-bottom-30">
                             <ImageUpload onUploadSuccess={onUploadSuccess} productImgUrl={productImgUrl}/>
                         </div>
+
 
 
                     </div>
