@@ -5,49 +5,26 @@ import Select from 'react-select';
 import { makeRequest } from 'core/utils/request';
 import { Category } from 'core/types/Product';
 
-export type FilterForm = {
-    name?: string;
-    categoryId?: number;
-}
 
 type Props = {
-    onSearch: (filter: FilterForm) => void;
+    name?: string;
+    handleChangeName: (value: string) => void;
+    category?: Category;
+    handleChangeCategory: (category: Category) => void;
+    clearFilters: () => void
 }
 
-const ProductFilter = ({onSearch} : Props) => {
+const ProductFilter = ({ name, handleChangeName, category, handleChangeCategory, clearFilters }: Props) => {
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState<Category>();
 
     useEffect(() => {
         setIsLoadingCategories(true);
-        makeRequest({url: '/categories'})
-        .then(response => setCategories(response.data.content))
-        .finally(() => setIsLoadingCategories(false));
-      }, []);
-
-      const handleChangeName = (name: string) =>{
-        setName(name);
-
-        onSearch({name, categoryId: category?.id});
-      }
-
-      const handleChangeCategory = (category: Category) =>{
-        setCategory(category);
-
-        onSearch({name, categoryId: category?.id});
-      }
-
-      const clearFilters = () => {
-          setCategory(undefined);
-          setName('');
-          onSearch({name: '', categoryId: undefined});
-
-      }
-
-
+        makeRequest({ url: '/categories' })
+            .then(response => setCategories(response.data.content))
+            .finally(() => setIsLoadingCategories(false));
+    }, []);
 
     return (
         <div className="card-base product-filters-container">
@@ -66,7 +43,7 @@ const ProductFilter = ({onSearch} : Props) => {
                 className="filter-select-container"
                 classNamePrefix="product-categories-select"
                 placeholder="Categorias"
-                onChange={value=>handleChangeCategory(value as Category)}
+                onChange={value => handleChangeCategory(value as Category)}
                 isClearable
             />
             <button className="btn btn-outline-secondary border-radius-10" onClick={clearFilters}>LIMPAR FILTRO</button>
