@@ -81,6 +81,3 @@ const Catalog = () => {
 
 export default Catalog;
 
-function onSearch(arg0: { name: string; categoryId: number | undefined; }) {
-    throw new Error('Function not implemented.');
-}

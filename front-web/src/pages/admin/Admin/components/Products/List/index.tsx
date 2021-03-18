@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import Card from '../Card';
 import { toast } from 'react-toastify';
 import './styles.scss';
-import ProductCardLoad from 'pages/catalog/components/ProductDetails/Loaders/ProductCardLoader';
 import CardLoader from '../Loaders/ProductCardLoader';
 
 const List = () => {
