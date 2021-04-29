@@ -339,4 +339,34 @@ const nav = StyleSheet.create({
 
 })
 
-export {colors, theme, text, nav};
+const tabbar = StyleSheet.create({
+    container:{
+        width: deviceWidth,
+        height: 80,
+        backgroundColor: colors.white,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    pill:{
+        padding: 15,
+        backgroundColor: colors.lightGray,
+        borderRadius: 30
+    },
+
+    pillActive:{
+        backgroundColor: colors.bluePillar
+    },
+
+    pillText:{
+        fontWeight: 'bold',
+        color: colors.mediumGray
+    },
+
+    pillTextActive:{
+        color: colors.primary
+    }
+})
+
+export {colors, theme, text, nav, tabbar};
