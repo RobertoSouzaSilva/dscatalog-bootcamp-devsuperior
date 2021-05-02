@@ -51,7 +51,8 @@ public class ProductService {
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
 		
 		Page<Product> list = productRepository.find(categories, name.trim(), pageRequest);
-		return list.map(x -> new ProductDTO(x));
+		productRepository.findProductWithCategories(list.getContent());
+		return list.map(x -> new ProductDTO(x, x.getCategories()));
 	}
 
 	@Transactional(readOnly = true)
@@ -66,6 +67,11 @@ public class ProductService {
 	public ProductDTO insert(ProductDTO productDTO) {
 		Product productEntity = new Product();
 		copyDtoToEntity(productDTO, productEntity);
+
+		if (productEntity.getCategories().size() == 0) {
+			Category cat = categoryRepository.getOne(1L);
+			productEntity.getCategories().add(cat);
+		}
 		//productEntity.setName(productDTO.getName());
 		productEntity = productRepository.save(productEntity);
 		return new ProductDTO(productEntity);
@@ -79,6 +85,12 @@ public class ProductService {
 		try {
 			Product entity = productRepository.getOne(id);
 			copyDtoToEntity(productDTO, entity);
+
+			if (entity.getCategories().size() == 0) {
+				Category cat = categoryRepository.getOne(1L);
+				entity.getCategories().add(cat);
+			}
+
 			//entity.setName(productDTO.getName());
 			entity = productRepository.save(entity);
 			return new ProductDTO(entity);
