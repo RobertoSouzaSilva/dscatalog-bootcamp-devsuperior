@@ -43,3 +43,37 @@ export async function deleteProduct(id: number){
         }
     })
 }
+
+export async function getProduct(id: number){
+    const res = await api.get(`/products/${id}`);
+    return res;
+}
+
+export async function updateProduct(data: object){
+    const authToken = await userToken();
+    const res = api.put(`/products/${data.id}`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+        }
+    });
+    return res
+}
+
+export async function uploadImage(image: string){
+    if(!image) return;
+    const authToken = await userToken();
+    let data = new FormData();
+    data.append("file", {
+        uri: image,
+        name: image,
+    });
+
+    const res = await api.post(`/products/image`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data"
+        }
+    });
+
+    return res;
+}

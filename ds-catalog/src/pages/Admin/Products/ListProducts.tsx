@@ -7,6 +7,7 @@ import { admin, text } from "../../../styles";
 
 interface ProductProps {
     setScreen: Function;
+    setProductId: Function;
 }
 
 const Products: React.FC<ProductProps> = (props) => {
@@ -15,13 +16,18 @@ const Products: React.FC<ProductProps> = (props) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const { setScreen } = props;
+    const { setScreen, setProductId } = props;
 
     async function fillProducts() {
         setLoading(true);
         const res = await getProducts();
         setProducts(res.data.content);
         setLoading(false);
+    }
+
+    function handleEdit(id: number){
+        setProductId(id);
+        setScreen('editProduct');
     }
 
     async function handleDelete(id: number) {
@@ -51,7 +57,7 @@ const Products: React.FC<ProductProps> = (props) => {
             ) : (data.map((product) => {
                 const { id } = product;
                 return (
-                    <ProductCard {...product} key={id} role="admin" handleDelete={handleDelete} />
+                    <ProductCard {...product} key={id} role="admin" handleDelete={handleDelete} handleEdit={handleEdit}/>
                 )
             }))
             }
